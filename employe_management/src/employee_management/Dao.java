@@ -1,8 +1,10 @@
 package employee_management;
+import java.util.*;
 
 public interface Dao {
 	boolean createEmployee(Employee employee);
-	Employee rettriveAllEmployee();
+	//List<Employee> rettriveAllEmployee();
+	Employee rettriveAllEmployee(); 
 	boolean updateEmployee(Employee employee);
 	boolean deleteEmployee(Employee employee);
 	Employee rettriveEmployeeById(Employee employee);

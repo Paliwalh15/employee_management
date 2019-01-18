@@ -1,5 +1,6 @@
 package employee_management; 
 import java.sql.Connection;
+import java.util.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,7 +35,9 @@ public class DaoImpl implements Dao {
 
 	//Getting profile of all existing employees
 	@Override
+	//public List<Employee> rettriveAllEmployee() {
 	public Employee rettriveAllEmployee() {
+		//List<Employee> emp_list=new ArrayList<>();
 		// TODO Auto-generated method stub
 		try
 		{
@@ -58,6 +61,21 @@ public class DaoImpl implements Dao {
 		}
 		return null;
 	}
+		/*try {
+			String sql="SELECT * FROM employee";
+			Statement stmnt=con.createStatement();
+			ResultSet rs=stmnt.executeQuery(sql);
+			while(rs.next())
+			{
+				Employee emp=new Employee(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6));
+				emp_list.add(emp);
+			}		
+		} catch(Exception ex)
+		{
+			System.out.println(ex);
+		}
+		return emp_list;*/
+	
 
 	//Updating employee's information by providing EmployeeID
 	@Override
@@ -71,7 +89,7 @@ public class DaoImpl implements Dao {
 		ps.setString(2, employee.getcontact()); 
 		ps.setString(3, employee.getemail()); 
 		ps.setString(4, employee.getaddress());
-		ps.setString(5, employee.getsalary());
+		ps.setInt(4, employee.getsalary());
 		ps.setString(6, employee.getid());
 		ps.executeUpdate(); 
 		} catch(Exception ex)
@@ -116,7 +134,7 @@ public class DaoImpl implements Dao {
 				System.out.println("contact:"+ rs.getString("contact"));
 				System.out.println("Email  :"+ rs.getString("email"));
 				System.out.println("Address:"+ rs.getString("address"));
-				System.out.println("Salary :"+ rs.getInt("salary");
+				System.out.println("Salary :"+ rs.getInt("salary"));
 				System.out.println("-------------------------------------------");
 			}
 		} catch(Exception ex)
@@ -131,15 +149,24 @@ public class DaoImpl implements Dao {
 	public Employee sortEmployeeBySalary() {
 		// TODO Auto-generated method stub
 		try {
-			String sql="SELECT id,salary FROM employee ORDER by salary ASC";
+			String sql="SELECT id,name,salary FROM employee ORDER by salary ASC";
 			stmnt=con.createStatement();
 			ResultSet rs=stmnt.executeQuery(sql);
-			System.out.println("ID : Salary");
-			System.out.println("-------------");
+		/*	System.out.println("ID |  Name  |  Address  |   Email   |  Contact  | Salary");
+			System.out.println("___|________|___________|___________|___________|________");
+			//System.out.println(rs.getString("id") );
 			while(rs.next())
 			{
-				System.out.println(rs.getString("id")+" : "+
-			rs.getString("salary"));
+				System.out.println(rs.getString("id")+" | "+
+			rs.getString("name")+" |  "+rs.getString("address")+"  |  "+rs.getString("email")
+			+"   |   "+rs.getString("contact")+"  |  "+rs.getInt("salary"));
+			}*/
+			System.out.println("ID  |  Name  |  Salary");
+			System.out.println("______________________");
+			while(rs.next())
+			{
+				System.out.println(rs.getString("id")+"  |  "+rs.getString("name")+""
+						+ "  |  "+rs.getInt("salary"));
 			}
 			
 		} catch(Exception ex)
